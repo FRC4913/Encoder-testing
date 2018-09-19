@@ -28,8 +28,13 @@ public class Robot extends TimedRobot {
 	private static final String kCustomAuto = "My Auto";
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
-	WPI_TalonSRX Demonster = new WPI_TalonSRX(2);//The 2 is a placeholder for now. Need to check device ID later
+	WPI_TalonSRX Demontster = new WPI_TalonSRX(2);//The 2 is a placeholder for now. Need to check device ID later
 	XboxController playstation = new XboxController(0);
+	double derivativeGain = 0.1;
+	double integralGain = 0.1;
+	double proportionalGain = 0.1;
+	int timedOut = 30;
+	int pidLoop = 0;
 	
 
 	/**
@@ -41,11 +46,11 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("Default Auto", kDefaultAuto);
 		m_chooser.addObject("My Auto", kCustomAuto);
 		SmartDashboard.putData("Auto choices", m_chooser);
-		Demonster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 30);
-		Demonster.config_kD(0, 0.1, 30);
-		Demonster.config_kI(0, 0.1, 30);
-		Demonster.config_kP(0, 0.1, 30);
-		Demonster.config_kF(0, 0, 30);
+		Demontster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, pidLoop, timedOut);
+		Demontster.config_kD(pidLoop, derivativeGain, timedOut);
+		Demontster.config_kI(pidLoop, integralGain, timedOut);
+		Demontster.config_kP(pidLoop, proportionalGain, timedOut);
+		Demontster.config_kF(pidLoop, 0, 30);
 	}
 
 	/**
@@ -90,7 +95,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		if(playstation.getAButton()) {
-			Demonster.set(ControlMode.Position, 1316);
+			Demontster.set(ControlMode.Position, 1316);
 		}
 	}
 
