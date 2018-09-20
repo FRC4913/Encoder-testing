@@ -35,6 +35,7 @@ public class Robot extends TimedRobot {
 	double proportionalGain = 0.1;
 	int timedOut = 30;
 	int pidLoop = 0;
+	int pidSlot = 0;
 	
 
 	/**
@@ -47,10 +48,10 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("My Auto", kCustomAuto);
 		SmartDashboard.putData("Auto choices", m_chooser);
 		Demontster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, pidLoop, timedOut);
-		Demontster.config_kD(pidLoop, derivativeGain, timedOut);
-		Demontster.config_kI(pidLoop, integralGain, timedOut);
-		Demontster.config_kP(pidLoop, proportionalGain, timedOut);
-		Demontster.config_kF(pidLoop, 0, 30);
+		Demontster.config_kD(pidSlot, derivativeGain, timedOut);
+		Demontster.config_kI(pidSlot, integralGain, timedOut);
+		Demontster.config_kP(pidSlot, proportionalGain, timedOut);
+		Demontster.config_kF(pidSlot, 0, timedOut);
 	}
 
 	/**
