@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
 	int timedOut = 30;
 	int pidLoop = 0;
 	int pidSlot = 0;
+	int initialEncoderPosition = 0;
 	
 
 	/**
@@ -48,6 +49,11 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("My Auto", kCustomAuto);
 		SmartDashboard.putData("Auto choices", m_chooser);
 		Demontster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, pidLoop, timedOut);
+		Demontster.setSelectedSensorPosition(initialEncoderPosition, pidLoop, timedOut);
+		/*initializes encoder position as 0. Initial encoder position is set to 0 when robot starts up.
+		 * This is meant to avoid the encoder malfunctioning and 
+		 * having a non-zero value on start-up
+		*/
 		Demontster.config_kD(pidSlot, derivativeGain, timedOut);
 		Demontster.config_kI(pidSlot, integralGain, timedOut);
 		Demontster.config_kP(pidSlot, proportionalGain, timedOut);
